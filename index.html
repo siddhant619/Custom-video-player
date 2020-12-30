@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
 <body>
+    <div class="wrapper">
     <div class="container">
         
-            <video class="player__video viewer" src="video.mp4">
+            <video  class="player__video viewer" src="video.mp4">
 
             </video>
             <div class="player-controls">
@@ -21,22 +22,35 @@
                     <input id="track" type="range" min="0" value="0">
                 </div> -->
                 <div class="flex">
-                    <div class="left-controls">
+                    <div class="left controls">
                         <button id="play-pause" class="player-button">&#9658;</button>
                         <div class="control-subgroup">
                             <button class="player-button"id="back" >10 &laquo;</button>
                             <div id="time"></div>
-                        
-                        <button class="player-button"id="forward" >20 &raquo;</button>
-                    </div>
+                            <button class="player-button"id="forward" >20 &raquo;</button>
+                        </div>
                         <i class="fas fa-volume-up" ></i>
                         <input id="volume" type="range" min="0" max="10">
+                    </div>
+
+                    <div class="right controls">
+
+<!--                         <button class="player-button"id="fullwidth" >&#8596;</button>
+-->                        
+<!--                         <button class="player-button"id="speed-button" >1x</button>
+ -->                        <button class="player-button"id="fullscreen" >&#x26F6;</button>
                     </div>
                     
                 </div>
             </div>
             
         </div>
+        <div class="speed">
+            <div class="speed-bar" >
+                1x
+            </div>
+        </div>
+    </div>
     
     
     <script src="script.js"></script>

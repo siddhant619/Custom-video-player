@@ -1,4 +1,5 @@
 /*Selecting elements  */
+const playerControls=document.querySelector('.player-controls');
 const video=document.querySelector('video');
 const playButton=document.querySelector('button');
 const track=document.querySelector('.progress');
@@ -7,6 +8,10 @@ const backButton=document.getElementById('back');
 const forwardButton=document.getElementById('forward');
 const volumeIcon=document.querySelector('.fa-volume-up');
 const time=document.getElementById('time');
+const fullscreen=document.getElementById('fullscreen');
+const fullwidth=document.getElementById('fullwidth');
+const speedButton=document.getElementById('speed-button');
+const speedBar=document.querySelector('.speed');
 
 /*Initializing variables */
 let isPlaying=false;
@@ -99,4 +104,58 @@ volumeIcon.addEventListener('mouseover',()=>{
 
 volume.addEventListener('mouseleave',()=>{
     volume.style.opacity=0;
+})
+
+/*FULLSCREEN */
+fullscreen.addEventListener('click',function(){
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } 
+})
+
+/*Full width */
+/* fullwidth.addEventListener('click',function(){
+    document.querySelector('.container').style.width="100%";
+    document.querySelector('.container').style.height="60vh";
+    video.style.height="60vh";
+}) */
+/*Toggle controls up and down */
+playerControls.addEventListener('mouseenter',function(){
+    playerControls.style.bottom="7px";
+})
+playerControls.addEventListener('mouseleave',function(){
+    playerControls.style.bottom="-26px";
+})
+video.addEventListener('mouseenter',function(){
+    playerControls.style.bottom="7px";
+})
+video.addEventListener('mouseleave',function(){
+    playerControls.style.bottom="-26px";
+})
+
+/*SPEED BAR */
+let speedChange=false;
+document.querySelector('.speed-bar')
+speedBar.addEventListener('mousemove',function(e){
+    //console.log('h');
+    if(speedChange){
+        
+        let y=e.pageY-this.offsetTop;
+        let percent=y/this.offsetHeight;
+        let height= Math.round(100*percent)+"%";
+        
+        let playBackRate=percent*(4-0.4)+0.4;
+        console.log(playBackRate);
+        document.querySelector('.speed-bar').textContent=playBackRate.toFixed(2)+"x";
+        document.querySelector('.speed-bar').style.height= height;
+        video.playbackRate=playBackRate;
+    }
+})
+speedBar.addEventListener('mousedown',(e)=>{
+    console.log(e.offsetY);
+    speedChange=true;
+})
+window.addEventListener('mouseup',(e)=>{
+    console.log(e.offsetY);
+    speedChange=false;
 })
