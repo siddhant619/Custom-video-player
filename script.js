@@ -12,7 +12,29 @@ const fullscreen=document.getElementById('fullscreen');
 const fullwidth=document.getElementById('fullwidth');
 const speedButton=document.getElementById('speed-button');
 const speedBar=document.querySelector('.speed');
-
+const nextVideo=document.getElementById('next-video');
+const prevVideo=document.getElementById('prev-video');
+const videoTitle=document.querySelector('.title');
+/* */
+const videoList=["video.mp4" , "video1.mp4","video2.mp4"];
+let current=0;
+videoTitle.textContent=videoList[current];
+video.src=videoList[current];
+nextVideo.addEventListener('click', ()=>{
+    current=(current+1)%videoList.length;
+    video.src=videoList[current];
+    videoTitle.textContent=videoList[current];
+    togglePlay();
+})
+prevVideo.addEventListener('click', ()=>{
+    if(current==0) 
+        current=videoList.length-1;
+    else
+        current=(current-1);
+    video.src=videoList[current];
+    videoTitle.textContent=videoList[current];
+    togglePlay();
+})
 /*Initializing variables */
 let isPlaying=false;
 let ismousedown=false;
@@ -24,7 +46,9 @@ function runafterload(){
     const min=Math.floor(length/60);
     const sec=Math.floor(length%60);
     time.innerHTML=`00:00 / ${min}:${sec}`;
-    console.log(min,sec);
+    document.querySelector('.speed-bar').style.height= "16.6%";// 100 percent- (4-0.4) units. So 0.6 units= (100*0.6)/3.6 
+    document.querySelector('.speed-bar').textContent="1x";
+    console.log(video.src);
 }
 //Resource- https://www.w3schools.com/tags/av_event_loadeddata.asp
 video.addEventListener('loadedmetadata', runafterload);
@@ -124,13 +148,13 @@ playerControls.addEventListener('mouseenter',function(){
     playerControls.style.bottom="7px";
 })
 playerControls.addEventListener('mouseleave',function(){
-    playerControls.style.bottom="-26px";
+    playerControls.style.bottom="-27px";
 })
 video.addEventListener('mouseenter',function(){
     playerControls.style.bottom="7px";
 })
 video.addEventListener('mouseleave',function(){
-    playerControls.style.bottom="-26px";
+    playerControls.style.bottom="-27px";
 })
 
 /*SPEED BAR */
@@ -143,10 +167,10 @@ speedBar.addEventListener('mousemove',function(e){
         let y=e.pageY-this.offsetTop;
         let percent=y/this.offsetHeight;
         let height= Math.round(100*percent)+"%";
-        
+        //min speed=0.4 , max=4
         let playBackRate=percent*(4-0.4)+0.4;
         console.log(playBackRate);
-        document.querySelector('.speed-bar').textContent=playBackRate.toFixed(2)+"x";
+        document.querySelector('.speed-bar').textContent=playBackRate.toFixed(2)+"x";//round to 2 decimal
         document.querySelector('.speed-bar').style.height= height;
         video.playbackRate=playBackRate;
     }
