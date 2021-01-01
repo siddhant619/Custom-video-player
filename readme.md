@@ -1,4 +1,4 @@
 # Custom video player  
 
-A custom controls video player made only using HTML, CSS and VanillaJS. 
+A custom controls video player made only using HTML, CSS and VanillaJS. [Demo link](https://custom-video-player-htmlcssjs.netlify.app/)
 
