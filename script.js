@@ -15,6 +15,7 @@ const speedBar=document.querySelector('.speed');
 const nextVideo=document.getElementById('next-video');
 const prevVideo=document.getElementById('prev-video');
 const videoTitle=document.querySelector('.title');
+const snap=document.getElementById('snap');
 /* */
 const videoList=["video.mp4" , "video1.mp4","video2.mp4"];
 let current=0;
@@ -54,11 +55,11 @@ function runafterload(){
 video.addEventListener('loadedmetadata', runafterload);
 function togglePlay(){
     if(isPlaying==false){
-        playButton.innerHTML="&#10074;&#10074;";
+        playButton.innerHTML="<i class='fas fa-pause'></i>";
         video.play();
     }
     else{
-        playButton.innerHTML="&#9658;";
+        playButton.innerHTML="<i class='fas fa-play'></i>";
         video.pause();
     }
     isPlaying=!isPlaying;
@@ -182,4 +183,21 @@ speedBar.addEventListener('mousedown',(e)=>{
 window.addEventListener('mouseup',(e)=>{
     console.log(e.offsetY);
     speedChange=false;
+})
+
+/*Snap*/
+
+snap.addEventListener('click',()=>{
+    const canvas=document.createElement('canvas');
+    const ctx=canvas.getContext('2d');
+    const width=video.videoWidth;//width of the media in its natural size!->VVI coz in css we set width of player as 200px. But videoWidth gives the natural size.
+    const height=video.videoHeight;
+    canvas.width=width;//set the canvas h and w to natural size of video(VVI)
+    canvas.height=height;
+    ctx.drawImage(video,0,0,width,height);
+    const link=document.createElement('a');
+    const data=canvas.toDataURL('image/jpeg');
+    link.href=data;
+    link.setAttribute('download','Video_snap');
+    link.click();//!!
 })
